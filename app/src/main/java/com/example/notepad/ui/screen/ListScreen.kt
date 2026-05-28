@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.notepad.DetailScreenRoute
 import com.example.notepad.R
+import com.example.notepad.data.NetworkResponse
+import com.example.notepad.data.db.note.Note
 import com.example.notepad.ui.components.ShowNoteTitle
 import com.example.notepad.viewmodel.ListViewModel
 
@@ -38,11 +42,14 @@ import com.example.notepad.viewmodel.ListViewModel
 
 @Composable
 fun ListScreen(listViewModel: ListViewModel, navController: NavHostController) {
-    val uiState = listViewModel.uiState.collectAsState()
+    val uiState = listViewModel.uiState.collectAsState(
+        initial = emptyList()
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color.Black).statusBarsPadding()
+
     ) {
 
         Column(
@@ -65,12 +72,13 @@ fun ListScreen(listViewModel: ListViewModel, navController: NavHostController) {
                 items(uiState.value) { note ->
                     ShowNoteTitle(note, navController)
                 }
+
             }
         }
 
         FloatingActionButton(
             onClick = {
-                navController.navigate(DetailScreenRoute(-1))
+                navController.navigate(DetailScreenRoute(null))
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter).padding(bottom = 50.dp)

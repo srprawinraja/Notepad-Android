@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
 import com.example.notepad.DetailScreenRoute
-import com.example.notepad.db.note.Note
+import com.example.notepad.data.db.note.Note
 
 
 @Composable

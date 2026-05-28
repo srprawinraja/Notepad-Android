@@ -1,4 +1,4 @@
-package com.example.notepad.db
+package com.example.notepad.data.db
 
 import android.content.Context
 import androidx.room.Room
