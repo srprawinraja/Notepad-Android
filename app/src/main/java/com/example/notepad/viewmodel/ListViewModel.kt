@@ -3,7 +3,6 @@ package com.example.notepad.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.notepad.data.NetworkResponse
 import com.example.notepad.data.db.AppDatabaseInstance
 import com.example.notepad.data.db.note.Note
 import com.example.notepad.data.db.note.NoteRepository
