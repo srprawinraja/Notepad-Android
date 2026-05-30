@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -24,23 +26,30 @@ import com.example.notepad.data.db.note.Note
 
 
 @Composable
-fun ShowNoteTitle(note: Note, navController: NavHostController){
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Row(
-            modifier = Modifier.fillMaxWidth().background(Color("#1D1D1F".toColorInt())).clickable(onClick = {
-                        navController.navigate(DetailScreenRoute(note.uid))
-                    }
-                ).padding(10.dp)
-            ) {
-            Text(
-                note.title,
-                modifier = Modifier.padding(start = 10.dp),
-                color = Color.White,
-                fontSize = 25.sp
+fun ShowNoteTitle(note: Note, navController: NavHostController) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color("#1D1D1F".toColorInt()))
+            .clickable(onClick = {
+                navController.navigate(DetailScreenRoute(note.uid))
+            }
             )
-        }
-        Spacer(modifier = Modifier.padding(1.dp).width(5.dp))
+            .padding(10.dp)
+    ) {
+        Text(
+            note.title.ifEmpty { note.description },
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .wrapContentSize(),
+            color = Color.White,
+            fontSize = 25.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
+    Spacer(modifier = Modifier
+        .padding(1.dp)
+        .width(5.dp))
 }

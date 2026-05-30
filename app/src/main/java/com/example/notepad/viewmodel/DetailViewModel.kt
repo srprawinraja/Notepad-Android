@@ -12,14 +12,15 @@ import kotlinx.coroutines.launch
 class DetailViewModel(
     val noteRepository: NoteRepository
 ): ViewModel(){
-    val title = mutableStateOf("untiled")
+    val title = mutableStateOf("")
 
     val description = mutableStateOf("")
 
     fun save(uId: Int?, newTitle: String, newDescription: String){
         viewModelScope.launch {
            if(uId == null){
-               noteRepository.insertNote(Note(title = newTitle, description = newDescription))
+               if(newTitle.isNotEmpty() || newDescription.isNotEmpty())
+                noteRepository.insertNote(Note(title = newTitle, description = newDescription))
            } else {
                noteRepository.getNote(uId)?.copy(title = newTitle, description = newDescription)?.let { it->
                    noteRepository.updateNote(it)
@@ -29,7 +30,7 @@ class DetailViewModel(
         }
     }
     fun discard(){
-        title.value = "untiled"
+        title.value = ""
         description.value = ""
     }
     fun showNote(uId: Int){
