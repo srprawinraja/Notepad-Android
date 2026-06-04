@@ -26,20 +26,20 @@ import com.example.notepad.data.db.note.Note
 
 
 @Composable
-fun ShowNoteTitle(note: Note, navController: NavHostController) {
+fun ShowNoteTitle(uId: Int, title: String, description: String, onNext: (Int?) -> Unit) {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color("#1D1D1F".toColorInt()))
             .clickable(onClick = {
-                navController.navigate(DetailScreenRoute(note.uid))
+                onNext(uId)
             }
             )
             .padding(10.dp)
     ) {
         Text(
-            note.title.ifEmpty { note.description },
+            title.ifEmpty { description },
             modifier = Modifier
                 .padding(start = 10.dp)
                 .wrapContentSize(),
