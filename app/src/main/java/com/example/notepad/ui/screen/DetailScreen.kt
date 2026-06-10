@@ -35,21 +35,23 @@ fun DetailScreen(
         }
     }
     Column (
-        modifier = Modifier.fillMaxSize().background(Color.Black).fillMaxSize().padding(paddingValues)
+        modifier = Modifier.fillMaxSize().background(Color.White
+        ).fillMaxSize().padding(paddingValues)
     ){
         TextField(
             value = detailViewModel.title.value,
-            onValueChange = { it ->detailViewModel.title.value = it },
+            onValueChange = { detailViewModel.title.value = it },
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Black,
-                unfocusedContainerColor = Color.Black,
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
             ),
             placeholder = {
                 Text("enter a title")
-            }
+            },
+
         )
         Spacer(modifier = Modifier.padding(top = 20.dp))
         TextField(
@@ -57,10 +59,10 @@ fun DetailScreen(
             onValueChange = { it ->  detailViewModel.description.value = it },
             modifier = Modifier.fillMaxSize(),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Black,
-                unfocusedContainerColor = Color.Black,
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
             ),
             placeholder = {
                 Text("enter a description")

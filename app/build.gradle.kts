@@ -4,8 +4,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     kotlin("kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
+
 }
 
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+}
 android {
     namespace = "com.example.notepad"
     compileSdk = 36
@@ -43,6 +49,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.compose.ui)
     val nav_version = "2.9.8"
     val room_version = "2.8.4"
 

@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.notepad.data.db.note.NoteRepository
 import com.example.notepad.ui.screen.DetailScreen
+import com.example.notepad.ui.screen.HomeScreen
 import com.example.notepad.ui.screen.ListScreen
 import com.example.notepad.ui.theme.NotepadTheme
 import com.example.notepad.viewmodel.DetailViewModel
@@ -22,6 +23,10 @@ import kotlinx.serialization.Serializable
 object ListScreenRoute
 @Serializable
 data class DetailScreenRoute(val uid: Int?)
+
+@Serializable
+object HomeScreenRoute
+@Serializable
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +53,16 @@ fun App(
     paddingValues: PaddingValues
 ){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ListScreenRoute) {
+    NavHost(navController = navController, startDestination = HomeScreenRoute) {
+        composable<HomeScreenRoute> {
+            HomeScreen (paddingValues, {
+                navController.navigate(DetailScreenRoute(null))
+            }){
+                navController.navigate(ListScreenRoute)
+            }
+        }
         composable<ListScreenRoute> { ListScreen(listViewModel,  paddingValues){ uId ->
-            navController.navigate(DetailScreenRoute(null))
+            navController.navigate(DetailScreenRoute(uId))
         } }
         composable<DetailScreenRoute> {
                 backStackEntry ->
